@@ -8,6 +8,7 @@
     repo: "{{ omz_git_repository }}"
     dest: "{{ omz_install_path }}"
     update: true
+    forde: true
     accept_hostkey: true
     version: "master"
   register: "omz_clone"

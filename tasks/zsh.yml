@@ -3,23 +3,14 @@
   set_fact:
     omz_user_home_dir: "{{ (ansible_system == 'Darwin') | ternary('Users', 'home') }}"
 
-- name: Ensure zsh is installed.
-  block:
-    - name: Install zsh for Linux.
-      package:
-        name: "zsh"
-        state: present
-      when:
-        - "ansible_system == 'Linux'"
-        - "omz_install_zsh"
-
-    - name: Install zsh for macOS.
-      homebrew:
-        name: "zsh"
-        state: present
-      when:
-        - "ansible_system == 'Darwin'"
-        - "omz_install_zsh"
+- name: Ensure zsh is installed on linux
+  package:
+    name: "zsh"
+    state: present
+  when:
+    - "ansible_system == 'Linux'"
+    - "omz_install_zsh"
+    # zsh is the default shell on MacOS anyway, so we don't need to install it first
 
 - name: Get zsh installed path.
   shell: "command -v zsh"
